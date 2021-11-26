@@ -1,0 +1,31 @@
+<br/>
+<br/>
+<nz-table #editRowTable nzBordered [nzData]="listOfData">
+  <thead>
+  <tr>
+    <th nzWidth="30%">姓名</th>
+    <th>在RSC？</th>
+    <th>备注</th>
+    <th>提交</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of editRowTable.data" class="editable-row">
+    <td>
+      {{ data.name }}
+    </td>
+    <td>
+      <nz-switch [(ngModel)]=data.status></nz-switch>
+    </td>
+    <td>
+      <div class="editable-cell" [hidden]="editId === data.id" (click)="startEdit(data.id)">
+        {{ data.info }}
+      </div>
+      <input [hidden]="editId !== data.id" type="text" nz-input [(ngModel)]="data.info" (blur)="stopEdit()"/>
+    </td>
+    <td>
+      <a nz-popconfirm nzPopconfirmTitle="确认提交？" (nzOnConfirm)="submit(data.id)">提交</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
